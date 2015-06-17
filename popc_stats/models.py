@@ -21,7 +21,7 @@ from database import Base
 
 class POPC(Base):
 
-    __tablename__ = 'popc'
+    __tablename__ = 'my_popc_stats'
     __table_args__ = (
         PrimaryKeyConstraint('id'),
     )
