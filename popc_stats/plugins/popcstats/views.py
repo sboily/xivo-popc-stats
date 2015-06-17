@@ -18,7 +18,7 @@
 from flask import Blueprint, jsonify
 from popc_stats.calls import PopcStats
 
-popc = Blueprint('popc', __name__)
+popc = Blueprint('popc', __name__, url_prefix='0.1')
 
 @popc.route("/popc")
 def index():
