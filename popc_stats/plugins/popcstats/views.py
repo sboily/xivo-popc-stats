@@ -16,9 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from flask import Blueprint, jsonify
+from popc_stats.calls import PopcStats
 
 popc = Blueprint('popc', __name__)
 
 @popc.route("/popc")
 def index():
-    return jsonify({'data': {'plugin': 'popc'}})
+    calls = PopcStats()
+
+    return jsonify({'data': calls.create_stats_from_db_popc()})

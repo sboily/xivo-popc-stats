@@ -17,10 +17,8 @@
 
 from xivo_confd import BasePlugin
 from popc_stats.database import create_db
-from popc_stats.calls import PopcStats
 from popc_stats.config import init_config
 from views import popc
-from pprint import pprint
 
 class XiVOPopcStats(BasePlugin):
     def load(self, app, config):
@@ -28,6 +26,3 @@ class XiVOPopcStats(BasePlugin):
         db_session = create_db(config_popc)
 
         app.register_blueprint(popc)
-
-        calls = PopcStats()
-        pprint(calls.create_stats_from_db_popc())
