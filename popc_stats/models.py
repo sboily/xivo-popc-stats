@@ -2,7 +2,6 @@ from sqlalchemy.schema import Column, PrimaryKeyConstraint
 from sqlalchemy.types import Integer, String, DateTime
 from database import Base
 
-
 class ModelPopc(Base):
 
     __tablename__ = 'popc'

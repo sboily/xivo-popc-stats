@@ -1,13 +1,6 @@
 extensions:
-  - 0562132525@from-operateur
-  - 0567680042@from-operateur
-  - 0562132571@from-operateur
-  - 4000@default
-  - 4001@default
-  - 4002@default
-  - 4003@default
-  - 4004@default
-  - 4006@default
+  - 9@default
+  - 4184761949@from-extern
 origin_uuid:
-  - 74ae3b29-9a36-4792-be9c-d2a194b65fee
-db_uri: postgresql://asterisk:proformatique@localhost/asterisk
+  - 1cc7fbf2-5f13-4898-9869-986990cb9b0a
+db_uri: postgresql://asterisk:proformatique@192.168.32.248/asterisk
