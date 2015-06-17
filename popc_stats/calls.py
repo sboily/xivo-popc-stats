@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from sqlalchemy import cast, DATE
-from datetime import date
+from datetime import date, timedelta
 from models import CEL, POPC
 
 BRIDGES = list()
@@ -231,7 +231,7 @@ class PopcStatConvert():
         self.db_session.commit()
 
     def _get_from_db(self):
-        return self.db_session.query(CEL).filter(cast(CEL.EventTime, DATE)==date.today()).order_by(CEL.EventTime)
+        return self.db_session.query(CEL).filter(cast(CEL.EventTime, DATE)==date.today() + timedelta(days=-1)).order_by(CEL.EventTime)
 
     def _clean_db(self):
         self.db_session.query(POPC).delete()
