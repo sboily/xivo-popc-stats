@@ -6,7 +6,7 @@ from config import init_config
 from pprint import pprint
 
 config = init_config()
-db_sessioe = create_db(config)
+db_session = create_db(config)
 init_db()
 
 stats = PopcStatConvert(db_session, config)

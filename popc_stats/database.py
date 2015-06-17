@@ -18,6 +18,5 @@ def create_db(config):
     return db_session
 
 def init_db():
-    from models import ModelPopc
     Base.metadata.create_all(bind=engine)
 

@@ -1,7 +1,6 @@
 from sqlalchemy import cast, DATE
 from datetime import date
-from models import CEL
-from models import ModelPopc
+from models import CEL, POPC
 
 BRIDGES = list()
 CHANNELS = dict()
@@ -140,7 +139,7 @@ class PopcStatGenerator():
         return exten + '@' + context
 
     def insert_data(self, data):
-        stats = ModelPopc()
+        stats = POPC()
         stats.callerid = data['calleridnum']
         stats.time = data['time']
         stats.type = data['type']
@@ -159,7 +158,7 @@ class PopcStats():
         return self._convert_to_dict(self._get_from_db())
 
     def _get_from_db(self):
-        return ModelPopc.query.order_by(ModelPopc.linkedid).all()
+        return POPC.query.order_by(POPC.linkedid).all()
 
     def _convert_to_dict(self, data):
         calls = dict()
@@ -204,6 +203,7 @@ class PopcStatConvert():
         self.config = config
 
     def insert_stats_to_db_popc(self):
+        self._clean_db()
         flow = PopcStatGenerator(self.db_session, self.config)
 
         for row in self._get_from_db():
@@ -215,3 +215,6 @@ class PopcStatConvert():
 
     def _get_from_db(self):
         return self.db_session.query(CEL).filter(cast(CEL.EventTime, DATE)==date.today()).order_by(CEL.EventTime)
+
+    def _clean_db(self):
+        self.db_session.query(POPC).delete()
