@@ -17,6 +17,14 @@ setup(
     url='https://github.com/sboily/xivo-popc-stats',
 
     packages=find_packages(),
+    zip_safe = False,
+    scripts=['bin/xivo-popc-stats'],
+    data_files=[('/etc/xivo-popc-stats', ['etc/xivo-popc-stats/config.yml'])],
+    entry_points={
+        'xivo_confd.plugins': [
+            'popstats = popc_stats.plugins.popcstats:XiVOPopcStats',
+        ],
+    }
 
 )
 

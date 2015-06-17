@@ -15,25 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from popc_stats.database import init_db, create_db
+from popc_stats.calls import PopcStatConvert
+from popc_stats.config import init_config
 
-Base = declarative_base()
-engine = None
 
-def create_db(config):
-    global engine
+def main():
+    config = init_config()
+    db_session = create_db(config)
+    init_db()
 
-    engine = create_engine(config['db_uri'], convert_unicode=True)
-    db_session = scoped_session(sessionmaker(autocommit=False,
-                                             autoflush=False,
-                                             bind=engine))
-
-    Base.query = db_session.query_property()
-
-    return db_session
-
-def init_db():
-    Base.metadata.create_all(bind=engine)
-
+    stats = PopcStatConvert(db_session, config)
+    stats.insert_stats_to_db_popc()

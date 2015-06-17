@@ -15,25 +15,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from xivo_confd import BasePlugin
+from database import create_db
+from calls import PopcStats
+from config import init_config
+from views import popc
+from pprint import pprint
 
-Base = declarative_base()
-engine = None
+class XiVOPopcStats(BasePlugin):
+    def load(self, app, config):
+        config_popc = init_config()
+        db_session = create_db(config_popc)
 
-def create_db(config):
-    global engine
+        app.register_blueprint(popc)
 
-    engine = create_engine(config['db_uri'], convert_unicode=True)
-    db_session = scoped_session(sessionmaker(autocommit=False,
-                                             autoflush=False,
-                                             bind=engine))
-
-    Base.query = db_session.query_property()
-
-    return db_session
-
-def init_db():
-    Base.metadata.create_all(bind=engine)
-
+        calls = PopcStats()
+        pprint(calls.create_stats_from_db_popc())
