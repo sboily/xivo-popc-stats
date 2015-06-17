@@ -146,3 +146,40 @@ def insert_data(data):
 
     db_session.add(stats)
     db_session.commit()
+
+
+def generate_stats():
+    stats = ModelPopc.query.order_by(ModelPopc.linkedid).all()
+
+    CALLS = {}
+
+    for stat in stats:
+        if not CALLS.has_key(stat.linkedid):
+            CALLS.update({stat.linkedid : { 'time_incoming': '',
+                                            'time_answer': '',
+                                            'time_hangup' : '',
+                                            'callerid': stat.callerid,
+                                            'queue': '',
+                                            'type': 'No answer',
+                                            'callered': '',
+                                            'origin_uuid': stat.origin_uuid,
+                                          }
+                         })
+
+        if stat.type == 'incoming':
+            CALLS[stat.linkedid]['time_incoming'] = stat.time
+        if stat.type == 'answer':
+            CALLS[stat.linkedid]['time_answer'] = stat.time
+            CALLS[stat.linkedid]['type'] = 'Answer'
+        if stat.type == 'hangup':
+            CALLS[stat.linkedid]['time_hangup'] = stat.time
+        if stat.queue:
+            CALLS[stat.linkedid]['queue'] = stat.queue
+        if stat.callered:
+            CALLS[stat.linkedid]['callered'] = stat.callered
+
+    for CALL in list(CALLS):
+        if not CALLS[CALL]['queue']:
+            del CALLS[CALL]
+            continue
+    return CALLS

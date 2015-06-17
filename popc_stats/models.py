@@ -1,5 +1,5 @@
 from sqlalchemy.schema import Column, PrimaryKeyConstraint
-from sqlalchemy.types import Integer, String
+from sqlalchemy.types import Integer, String, DateTime
 from database import Base
 
 
