@@ -22,7 +22,7 @@ setup(
     data_files=[('/etc/xivo-popc-stats', ['etc/xivo-popc-stats/config.yml'])],
     entry_points={
         'xivo_confd.plugins': [
-            'popstats = popc_stats.plugins.popcstats:XiVOPopcStats',
+            'popcstats = popc_stats.plugins.popcstats:XiVOPopcStats',
         ],
     }
 

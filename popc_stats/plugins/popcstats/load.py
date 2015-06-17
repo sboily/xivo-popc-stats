@@ -16,9 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from xivo_confd import BasePlugin
-from database import create_db
-from calls import PopcStats
-from config import init_config
+from popc_stats.database import create_db
+from popc_stats.calls import PopcStats
+from popc_stats.config import init_config
 from views import popc
 from pprint import pprint
 
