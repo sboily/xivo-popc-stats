@@ -215,9 +215,10 @@ class PopcStats():
         return calls
 
 class PopcStatConvert():
-    def __init__(self, db_session, config):
+    def __init__(self, db_session, config, days):
         self.db_session = db_session
         self.config = config
+        self.days = days
 
     def insert_stats_to_db_popc(self):
         self._clean_db()
@@ -232,10 +233,12 @@ class PopcStatConvert():
 
     def _get_from_db(self):
         return self.db_session.query(CEL) \
-                              .filter(cast(CEL.EventTime, DATE)==date.today() + timedelta(days=-1)) \
+                              .filter(cast(CEL.EventTime, DATE)==date.today() + timedelta(days=-self.days)) \
                               .order_by(CEL.EventTime)
 
     def _clean_db(self):
-        self.db_session.query(POPC) \
-                       .delete() \
-                       .where(cast(POPC.time, DATE)==date.today() + timedelta(days=-1))
+        query = (POPC.__table__
+                     .delete()
+                     .where(cast(POPC.time, DATE)==date.today() + timedelta(days=-self.days))
+                )
+        self.db_session.execute(query)

@@ -17,5 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from popc_stats.bin.cron import main
+import sys
 
-main()
+main(sys.argv[1:])
