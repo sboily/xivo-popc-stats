@@ -34,7 +34,7 @@ class POPC(Base):
     queue = Column(String(128))
     callered = Column(String(128))
     origin_uuid = Column(String(128), nullable=False)
-    time = Column(String(128), nullable=False)
+    time = Column(DateTime, nullable=False)
 
 class CEL(Base):
     __tablename__ = 'cel'

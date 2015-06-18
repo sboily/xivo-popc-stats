@@ -231,7 +231,11 @@ class PopcStatConvert():
         self.db_session.commit()
 
     def _get_from_db(self):
-        return self.db_session.query(CEL).filter(cast(CEL.EventTime, DATE)==date.today() + timedelta(days=-1)).order_by(CEL.EventTime)
+        return self.db_session.query(CEL) \
+                              .filter(cast(CEL.EventTime, DATE)==date.today() + timedelta(days=-1)) \
+                              .order_by(CEL.EventTime)
 
     def _clean_db(self):
-        self.db_session.query(POPC).delete()
+        self.db_session.query(POPC) \
+                       .delete() \
+                       .where(cast(POPC.time, DATE)==date.today() + timedelta(days=-1))
