@@ -18,17 +18,23 @@
 from popc_stats.database import init_db, create_db
 from popc_stats.calls import PopcStatConvert
 from popc_stats.config import init_config
+from pprint import pprint
 import argparse
 
 def main(argv):
 
     parser = argparse.ArgumentParser(description='XiVO stats generator')
-    parser.add_argument("-d", "--days", type=int, default=1, help="an integer for the days to generate stats")
+    parser.add_argument("-d", "--days", type=int, default=1, help="An integer for the days to generate/view stats")
+    parser.add_argument("-v", "--view", type=int, default=1, help="View stats from db")
     args = parser.parse_args()
 
     config = init_config()
     db_session = create_db(config)
     init_db()
 
-    stats = PopcStatConvert(db_session, config, args.days)
-    stats.insert_stats_to_db_popc()
+    if args.view:
+        calls = PopcStats()
+        pprint(calls.create_stats_from_db_popc(args.days))
+    else:
+        stats = PopcStatConvert(db_session, config, args.days)
+        stats.insert_stats_to_db_popc()
