@@ -25,7 +25,7 @@ def main(argv):
 
     parser = argparse.ArgumentParser(description='XiVO stats generator')
     parser.add_argument("-d", "--days", type=int, default=1, help="An integer for the days to generate/view stats")
-    parser.add_argument("-v", "--view", type=int, default=1, help="View stats from db")
+    parser.add_argument("-v", "--view", action="store_true", help="View stats from db")
     args = parser.parse_args()
 
     config = init_config()
