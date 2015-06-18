@@ -18,7 +18,7 @@ setup(
 
     packages=find_packages(),
     zip_safe = False,
-    scripts=['bin/xivo-popc-stats'],
+    scripts=['bin/xivo-popc-stats', 'bin/xivo-popc-stats-cli'],
     data_files=[('/etc/xivo-popc-stats', ['etc/xivo-popc-stats/config.yml'])],
     entry_points={
         'xivo_confd.plugins': [

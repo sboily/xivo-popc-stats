@@ -1,6 +1,5 @@
 extensions:
-  - 9@default
-  - 4184761949@from-extern
+  - 00000000@from-extern
 origin_uuid:
   - 1cc7fbf2-5f13-4898-9869-986990cb9b0a
-db_uri: postgresql://asterisk:proformatique@192.168.32.248/asterisk
+db_uri: postgresql://asterisk:proformatique@localhost/asterisk
