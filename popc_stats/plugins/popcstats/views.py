@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from popc_stats.calls import PopcStats
 
 popc = Blueprint('popc', __name__, url_prefix='/0.1')
@@ -23,5 +23,4 @@ popc = Blueprint('popc', __name__, url_prefix='/0.1')
 @popc.route("/popc")
 def index():
     calls = PopcStats()
-
-    return jsonify({'data': calls.create_stats_from_db_popc()})
+    return jsonify({'data': calls.create_stats_from_db_popc(request.args.get('day', 1))})

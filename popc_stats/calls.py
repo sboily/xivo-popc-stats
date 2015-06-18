@@ -171,11 +171,12 @@ class PopcStatGenerator():
         self.db_session.add(stats)
 
 class PopcStats():
-    def create_stats_from_db_popc(self):
-        return self._convert_to_dict(self._get_from_db())
+    def create_stats_from_db_popc(self, day):
+        return self._convert_to_dict(self._get_from_db(day))
 
-    def _get_from_db(self):
-        return POPC.query.order_by(POPC.linkedid).all()
+    def _get_from_db(self, day):
+        return POPC.query.filter(cast(POPC.time, DATE)==date.today() + timedelta(days=-int(day))) \
+                         .order_by(POPC.linkedid).all()
 
     def _convert_to_dict(self, data):
         calls = dict()
