@@ -23,11 +23,8 @@ import argparse
 def main(argv):
 
     parser = argparse.ArgumentParser(description='XiVO stats generator')
-    parser.add_argument("-d", "--days", type=int, help="an integer for the days to generate stats")
+    parser.add_argument("-d", "--days", type=int, default=1, help="an integer for the days to generate stats")
     args = parser.parse_args()
-
-    if not args.days:
-        args.days = -1
 
     config = init_config()
     db_session = create_db(config)
